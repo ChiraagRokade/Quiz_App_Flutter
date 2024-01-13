@@ -11,6 +11,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  final List<String> selectedAnswer = [];
   // 1st approach to move next page
   // Widget? activeScreen;
 
@@ -30,6 +31,10 @@ class _QuizState extends State<Quiz> {
     );
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswer.add(answer);
+  }
+
   @override
   Widget build(content) {
     //3rd approach to move next page
@@ -41,8 +46,11 @@ class _QuizState extends State<Quiz> {
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'question-screen') {
-      screenWidget = const QuestionScreen();
+      screenWidget = QuestionScreen(
+        onSelectAnswer: chooseAnswer,
+      );
     }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
